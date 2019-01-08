@@ -1,0 +1,84 @@
+You will need the following sprites: spr_ball 16x16 centered, spr_bar 128x16 centered with a modified collision mask diamond shaped, 
+spr_wall 32x32, spr_block 64x32 with 3 subimages, spr_ground 64x16 origin 0x16, spr_start 128x32, spr_quit 128x32, 
+spr_power1 32x32 centered with 62 subimages, spr_power2 32x32 centered with 62 subimages, spr_power3 32x32 centered with 62 subimages, 
+spr_doom 32x32 centered with 62 subimages
+
+You will need to make a font named fnt_gui
+
+Scripts:
+
+
+
+//scr_three_ball
+global.magnet_power_up = 0;
+
+aa=instance_create(obj_ball.x -8, obj_ball.y - 2, obj_ball);
+bb=instance_create(obj_ball.x +8, obj_ball.y +2, obj_ball);
+with(aa) {
+    vspeed = -5;
+    global.hold=0;
+};
+with(bb) {
+    vspeed = -5;
+    global.hold=0;
+};
+
+
+
+//scr_magnet
+global.magnet_power_up = 1;
+
+
+
+//scr_life_up
+global.lives += 1;
+
+
+
+//scr_doom
+global.lives -= 1;
+
+
+
+Object:
+
+
+//obj_ball Create Event
+global.hold = 1;
+magnet = 0;
+global.lives = 3; /////This is a potential issue
+
+//obj_ball Step Event
+if global.hold = 1
+{
+    x = obj_bar.x;
+    y = obj_bar.y - 16;
+}
+
+if global.hold = 1 && mouse_check_button_pressed(mb_left)
+{    
+    vspeed = -5; 
+    global.hold = 0;
+}
+
+if global.lives = 0
+{
+    room_goto(rm_menu);
+}
+
+
+
+//obj_ball Collision with obj_bar
+if global.magnet_power_up = 1 
+{
+    global.hold = 1;
+}
+
+if global.blockCount = 0 
+{
+    room_restart();
+}
+
+global.points += 1;
+
+
