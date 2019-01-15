@@ -82,3 +82,175 @@ if global.blockCount = 0
 global.points += 1;
 
 
+
+//obj_ball Collision with obj_wall
+drag and drop Bounce against not precisely
+
+
+
+//obj_ball Collision with obj_block
+move_bounce_solid(1);
+
+with(other) {   
+    instance_destroy();
+}
+
+global.blockCount -= 1;
+
+global.points += 5;
+
+global.power_up_drop = choose(0,1,2,3,4,5,6,7,8,9);
+
+switch (global.power_up_drop) {
+    case 0 : instance_create(other.x,other.y,obj_power1); break;
+    case 1 : instance_create(other.x,other.y,obj_power2); break;
+    case 2 : instance_create(other.x,other.y,obj_life); break;
+    case 3 : instance_create(other.x,other.y,obj_power3); break;
+    default: ;
+
+}
+
+
+
+//obj_ball Collision with obj_ground
+drag and drop; control; test instance count object is obj_ball number is 1 operation is larger than
+drag and drop; control; start of a block
+
+instance_destroy();
+
+drag and drop; control; end of a block
+drag and drop; control; else
+drag and drop; control; start of a block
+
+global.lives -= 1;
+global.hold = 1;
+x = obj_bar.x;
+y = obj_bar.y -16;
+
+global.magnet_power_up = 0;
+
+drag and drop; control; end of a block
+
+
+
+//obj_ball Room Start
+global.blockCount = instance_number(obj_block);
+
+
+
+//obj_bar Step
+x = mouse_x;
+
+
+
+//obj_bar Collision with obj_power
+switch(other.power_up) {
+    case 1 : scr_three_ball(); break;
+    case 2 : scr_magnet(); break;
+    case 3 : scr_life_up(); break;
+    case 4 : scr_doom(); break;
+}
+
+global.points += 10;
+
+with(other) {
+    instance_destroy();
+}
+
+
+
+obj_wall Visible Solid
+
+
+
+//obj_block Visible Solid Create Event
+switch(other.power_up) {
+    case 1 : scr_three_ball(); break;
+    case 2 : scr_magnet(); break;
+    case 3 : scr_life_up(); break;
+    case 4 : scr_doom(); break;
+}
+
+global.points += 10;
+
+with(other) {
+    instance_destroy();
+}
+
+
+
+//obj_controller Visible Persistent Create Event
+global.magnet_power_up = 0;
+
+global.blockCount = instance_number(obj_block);
+
+global.points = 0;
+
+
+
+//obj_contoller Draw GUI
+draw_set_font(fnt_gui);
+draw_set_color(c_navy);
+draw_text(32,32,string(global.lives));
+draw_text(32,64,string(global.points));
+
+
+
+obj_ground Visible
+
+
+
+//obj_power Create Event
+Drag and drop start moving in a direction down speed 5
+Children obj_power1 obj_power2 obj_life obj_power3
+
+
+
+//obj_start Collision with obj_ball
+room_goto(rm_level_1);
+
+
+
+//obj_start Left Pressed
+room_goto(rm_level_1);
+
+
+
+//obj_quit Collision with obj_ball
+game_end();
+
+
+
+//obj_quit Left Pressed
+game_end();
+
+
+
+//obj_power1 parent obj_power Visible Create Event
+event_inherited();
+power_up = 1;
+
+
+
+//obj_power2 parent obj_power Visible Create Event
+event_inherited();
+power_up = 2;
+
+
+
+//obj_life parent obj_power Visible Create Event
+event_inherited();
+power_up = 3;
+
+
+
+//obj_power3 parent obj_power Visible Create Event
+event_inherited();
+power_up = 4;
+
+
+
+Rooms: 
+rm_menu Line the walls, line the ground, start and quit, ball and bar 
+
+rm_level_1 line the walls, line the ground, blocks, ball, bar
