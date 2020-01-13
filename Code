@@ -164,18 +164,8 @@ obj_wall Visible Solid
 
 
 //obj_block Visible Solid Create Event
-switch(other.power_up) {
-    case 1 : scr_three_ball(); break;
-    case 2 : scr_magnet(); break;
-    case 3 : scr_life_up(); break;
-    case 4 : scr_doom(); break;
-}
-
-global.points += 10;
-
-with(other) {
-    instance_destroy();
-}
+image_speed = 0;
+image_index = choose(0,1,2);
 
 
 
